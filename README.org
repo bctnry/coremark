@@ -1,0 +1,9 @@
+* lang1
+
+Temporary name: Language One.
+
+The product of me trying to make the simplest usable language as I can. May or may not expand on this in the future.
+
+The basic framework is there, it just needs more stuff added.
+
+
