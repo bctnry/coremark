@@ -1,9 +1,27 @@
-* lang1
+* Coremark
 
-Temporary name: Language One.
+(TRAC but with words instead of characters in strings.)
 
-The product of me trying to make the simplest usable language as I can. May or may not expand on this in the future.
+** Algorithm
 
-The basic framework is there, it just needs more stuff added.
+1.  Prepare two stacks named =active= and =neutral= and a dictionary named =dict=.
+2.  Push each word in the source code onto the =active= stack *in the reversed order*, so that the first word in the source code would be on the top of the stack.
+3.  Prepare a stack named =arity=;
+    + This would be a stack that stores 2-tuples of integer; the first field of the 2-tuple would be the number of arguments we've received so far in the =neutral= stack, and the second field of the 2-tuple would be the number of arguments required to complete the call. The top 2-tuple would be referred as =arity.top=.
+4.  While =arity= is not empty, or =active= is not empty:
+    1.  If =arity= is not empty and ~arity.top[0] >= arity.top[1]~:
+        1.  Pop the corresponding number of words from =neutral=; this would be the argument list.
+	2.  Pop an extra word from =neutral=; if everything goes correctly, this should indicate the template or the primitive that's being called.
+	3.  Process the call. This should return a list of words.
+	4.  The returned list of words are then pushed onto =active= *in the reversed order* (so that the left-most word would be on the stack top, i.e. the first one being processed).
+	5.  Continue the loop.
+    2.  If =active= is empty, leave the loop.
+    3.  Pop a word from =active=. (This would be referred as =word= in the following steps).
+    4.  If =word= is a "value call" i.e. instead of starting a template call, this should directly push the definition of that word onto =neutral=. If =arity= is not empty, increase =arity.top[0]= by 1.
+    5.  Else, If =word= is a "quote word", it itself should be pushed onto =neutral=. If =arity= is not empty, increase =arity.top[0]= by 1.
+    6.  Else, If =word= is in =dict=, we consider it the beginning of a template call. Retrieve the definition of =word= from =dict=, which would give you the argument list =arglst= from which we can calculate its arity =arglst.len=. Push the tuple =(0, arglst.len)= onto =arity= and =word= onto =neutral=.
+    7.  Else, push =word= onto =neutral=; after that, if =arity= is not empty, increase =arity.top[0]= by 1.
+   
+
 
 

@@ -1,0 +1,10 @@
+def hanoi [n from via to] [
+  if <= n 0 [] [
+    if <= n 1 [[from to]] [
+      hanoi - n 1 from to via
+      [from to]
+      hanoi - n 1 via from to
+    ]
+  ]
+]
+hanoi 3 A B C

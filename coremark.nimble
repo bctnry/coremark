@@ -1,11 +1,11 @@
 # Package
 
 version       = "0.1.0"
-author        = "Zaaktin Lam"
+author        = "Zetian Lin"
 description   = "A new awesome nimble package"
 license       = "BSD-3-Clause"
 srcDir        = "src"
-bin           = @["lang1"]
+bin           = @["coremark"]
 
 
 # Dependencies
